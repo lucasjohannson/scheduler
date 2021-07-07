@@ -4,9 +4,9 @@ import DayListItem from "components/DayListItem";
 export default function DayList(props) {
   
 
-  const items = props.days.map(day => {
+  const items = props.days.map((day, index) => {
     return <DayListItem 
-    id = {day.id}
+    key = {index}
     name={day.name} 
     spots={day.spots} 
     selected={day.name === props.day}
