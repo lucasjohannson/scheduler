@@ -20,14 +20,16 @@ const interviewerClass = classNames("interviewers__item",
 // setInterviewer:function - sets the interviewer upon selection
 
 
-return (
-  <li className={interviewerClass} onClick={props.setInterviewer}>
-    <img
-      className="interviewers__item-image"
-      src={props.avatar}
-      alt={props.name}
-    />
-    {props.selected && props.name}
-  </li>
-);
+  return (
+
+    <li onClick={props.setInterviewer} className={interviewerClass} id={props.id}>
+      <img
+        className="interviewers__item-image"
+        src={props.avatar}
+        alt={props.name}
+      />
+      {props.selected ? props.name:""}
+    </li>
+
+  );
 }
