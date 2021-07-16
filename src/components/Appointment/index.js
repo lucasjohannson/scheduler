@@ -15,10 +15,8 @@ export default function Appointment(props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
-  const BACK = "BACK";
   const SAVING = "SAVING";
   const CONFIRM = "CONFIRM";
-  const status = "STATUS";
   const DELETE = "DELETE";
   const EDIT = "EDIT";
   const ERROR_SAVE = "ERROR_SAVE";
@@ -28,7 +26,8 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-
+  
+  //=== Functions for use in applicaiton ===
   function save(name, interviewer, update) {
     if(!interviewer){
       return;
@@ -43,7 +42,6 @@ export default function Appointment(props) {
     .catch((error) => transition(ERROR_SAVE, true));
     
   }
-  
   function confirmation() {
     transition(CONFIRM);
   }
@@ -56,11 +54,14 @@ export default function Appointment(props) {
     .then(() => transition(EMPTY))
     .catch((error) => transition(ERROR_DELETE, true));
   }
-  //console.log("Interview", props.interview);
+
+  //=== JSX to be returned ===
   return(
     <article className="appointment" data-testid="appointment">
       <Header time={props.time}/>
-      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      {mode === EMPTY && (
+        <Empty onAdd={() => transition(CREATE)} />
+      )}
       {mode === SHOW && (
         <Show
           student={props.interview.student}

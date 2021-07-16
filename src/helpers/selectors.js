@@ -11,7 +11,7 @@ export function getInterview (state, interview) {
 
 export function getAppointmentsForDay(state, day) {
   let returnArr = [];
-  console.log("day", day);
+  //console.log("day", day);
 
     const workingDay = state.days.filter(itm => itm.name === day);
     //console.log("🚀 ~ file: selectors.js ~ line 6 ~ getAppointmentsForDay ~ workingDay", workingDay)

@@ -12,7 +12,7 @@ export default function useApplicationData(props) {
   const setDay = (day) => {
     setState({ ...state, day });
   };
-
+  // function to update the spots remaining based on the action Create/delete
   const updateSpots = (state, action) => {
     for(let i = 0; i < state.days.length; i++){
       if (state.days[i].name === state.day){
@@ -25,9 +25,8 @@ export default function useApplicationData(props) {
       }
     }  
   };
-
+  // BookInterview function to be used with edit and create based on mode
    function bookInterview(id, interview, mode) {
-     console.log("___mode____", mode);
       const appointment = {
         ...state.appointments[id],
         interview: {...interview}
@@ -40,10 +39,11 @@ export default function useApplicationData(props) {
       return (
         axios.put(requestUrl, {interview})
         .then(() => {
+          //if the mode we passed was create then update the spots remaining
           if (mode === "CREATE") {
             updateSpots(state, "create");
           }
-          //updateSpots(state, "create");
+          //set the state with the updated appointments
           setState({ ...state, appointments });
         })
         );

@@ -1,7 +1,5 @@
 
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
-import useVisualMode from "hooks/useVisualMode";
+import React from "react";
 import "components/Application.scss";
 import Appointment from "components/Appointment";
 import DayList from "components/DayList";
@@ -18,6 +16,7 @@ export default function Application(props) {
     const interview = getInterview(state, appointment.interview);
     const interviewers = getInterviewersForDay(state, state.day);
 
+    //return appointment component
     return (
       <Appointment
         key={appointment.id}
@@ -30,7 +29,7 @@ export default function Application(props) {
       />
     );
   });
-
+  //insert the created schedule into the html return 
   return (
     <main className="layout">
       <section className="sidebar">
