@@ -29,23 +29,21 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  function save(name, interviewer) {
+  function save(name, interviewer, update) {
     if(!interviewer){
       return;
     }
-    // console.log("saved");
-    // console.log("name: ", name);
-    // console.log("interviewer: ", interviewer);
     const interview = {
       student: name,
       interviewer
     };
     transition(SAVING);
-    props.bookInterview(props.id,interview)
+    props.bookInterview(props.id, interview, mode)
     .then(() => transition(SHOW))
     .catch((error) => transition(ERROR_SAVE, true));
     
   }
+  
   function confirmation() {
     transition(CONFIRM);
   }
@@ -56,11 +54,11 @@ export default function Appointment(props) {
     transition(DELETE, true);
     props.cancelInterview(props.id)
     .then(() => transition(EMPTY))
-    .catch((error) => transition(ERROR_SAVE, true));
+    .catch((error) => transition(ERROR_DELETE, true));
   }
-  console.log("Interview", props.interview);
+  //console.log("Interview", props.interview);
   return(
-    <section className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time}/>
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
@@ -88,14 +86,14 @@ export default function Appointment(props) {
       {
         mode === DELETE && (
           <Status
-          message="deleteing data"
+          message="Deleting data"
           />
         )
       }
       {
         mode === CONFIRM && (
           <Confirm
-            message="Are you sure you would like to delete your appointment?"
+            message="Delete the appointment?"
             onCancel={back}
             onConfirm={cancel}
           />
@@ -112,21 +110,25 @@ export default function Appointment(props) {
           />
         )
       }
-            {mode === ERROR_DELETE && (
-        <Error
-          message={"Error encountered when deleting. Please try again"}
-          onClose={back}
-        ></Error>
-      )}
+      {
+        mode === ERROR_DELETE && (
+          <Error
+            message={"Error encountered when deleting. Please try again"}
+            onClose={back}
+          ></Error>
+        )
+      }
 
-      {mode === ERROR_SAVE && (
-        <Error
-          message={"Error encountered when saving. Please try again"}
-          onClose={back}
-        ></Error>
-      )}
+      {
+        mode === ERROR_SAVE && (
+          <Error
+            message={"Error encountered when saving. Please try again"}
+            onClose={back}
+          ></Error>
+        )
+      }
       
-    </section>
+    </article>
   );
 
 }

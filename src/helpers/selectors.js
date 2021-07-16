@@ -14,7 +14,7 @@ export function getAppointmentsForDay(state, day) {
   console.log("day", day);
 
     const workingDay = state.days.filter(itm => itm.name === day);
-    console.log("🚀 ~ file: selectors.js ~ line 6 ~ getAppointmentsForDay ~ workingDay", workingDay)
+    //console.log("🚀 ~ file: selectors.js ~ line 6 ~ getAppointmentsForDay ~ workingDay", workingDay)
     if(workingDay.length === 0){
       return returnArr;
     }
